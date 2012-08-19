@@ -54,14 +54,14 @@ mkdir -p bin
 ln -s /app/php/bin/php bin/php
 
 # figure out how to serve the website (dynamic or baked)
-PIECRUST_CHEF="/app/php/bin/php $CACHE_DIR/piecrust-$PIECRUST_VERSION.phar --root=$CACHE_DIR/kitchen"
-HEROKU_BUILD=`$PIECRUST_CHEF showconfig heroku/build_type`
+PIECRUST_CHEF="$CACHE_DIR/piecrust-$PIECRUST_VERSION.phar --root=$CACHE_DIR/kitchen"
+HEROKU_BUILD=`bin/php $PIECRUST_CHEF showconfig heroku/build_type`
 if [ "$HEROKU_BUILD" == "" ]; then
     HEROKU_BUILD=baked
 fi
 if [ "$HEROKU_BUILD" == "baked" ]; then
     # bake the website
-    $PIECRUST_CHEF bake --output=www
+    bin/php $PIECRUST_CHEF bake --output=www
 elif [ "$HEROKU_BUILD" == "dynamic" ]; then
     # add a bootstrap and keep the .phar
     mv $CACHE_DIR/piecrust-$PIECRUST_VERSION.phar /app
