@@ -1,69 +1,23 @@
-Apache+PHP build pack
+Apache+PHP+PieCrust build pack
 ========================
 
-This is a build pack bundling PHP and Apache for Heroku apps.
+This is a build pack bundling PHP and Apache for Heroku apps, along with baking
+or bootstraping a [PieCrust][] website if it is found.
 
-Configuration
--------------
-
-The config files are bundled with the LP itself:
-
-* conf/httpd.conf
-* conf/php.ini
+  [piecrust]: http://bolt80.com/piecrust
 
 
-Pre-compiling binaries
-----------------------
+Information
+-----------
 
-    # apache
-    mkdir /app
-    wget http://apache.cyberuse.com//httpd/httpd-2.2.19.tar.gz
-    tar xvzf httpd-2.2.19.tar.gz
-    cd httpd-2.2.19
-    ./configure --prefix=/app/apache --enable-rewrite
-    make
-    make install
-    cd ..
-    
-    # php
-    wget http://us2.php.net/get/php-5.3.6.tar.gz/from/us.php.net/mirror 
-    mv mirror php.tar.gz
-    tar xzvf php.tar.gz
-    cd php-5.3.6/
-    ./configure --prefix=/app/php --with-apxs2=/app/apache/bin/apxs --with-mysql --with-pdo-mysql --with-pgsql --with-pdo-pgsql --with-iconv --with-gd --with-curl=/usr/lib --with-config-file-path=/app/php --enable-soap=shared --with-openssl
-    make
-    make install
-    cd ..
-    
-    # php extensions
-    mkdir /app/php/ext
-    cp /usr/lib/libmysqlclient.so.15 /app/php/ext/
-    
-    # pear
-    apt-get install php5-dev php-pear
-    pear config-set php_dir /app/php
-    pecl install apc
-    mkdir /app/php/include/php/ext/apc
-    cp /usr/lib/php5/20060613/apc.so /app/php/ext/
-    cp /usr/include/php5/ext/apc/apc_serializer.h /app/php/include/php/ext/apc/
-    
-    
-    # package
-    cd /app
-    echo '2.2.19' > apache/VERSION
-    tar -zcvf apache.tar.gz apache
-    echo '5.3.6' > php/VERSION
-    tar -zcvf php.tar.gz php
+This is a slightly modified fork of the [Apache+PHP build pack][1] from Heroku.
+It just adds a script that downloads the latest version of PieCrust, and bakes
+the site if any is found.
+
+For more information about the rest of the process, go see the [original build
+pack][1].
 
 
-Hacking
--------
-
-To change this buildpack, fork it on Github. Push up changes to your fork, then create a test app with --buildpack <your-github-url> and push to it.
+  [1]: https://github.com/heroku/heroku-buildpack-php
 
 
-Meta
-----
-
-Created by Pedro Belo.
-Many thanks to Keith Rarick for the help with assorted Unix topics :)
