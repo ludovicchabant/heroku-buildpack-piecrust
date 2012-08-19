@@ -26,7 +26,7 @@ mkdir -p $CACHE_DIR/kitchen
 mv * $CACHE_DIR/kitchen
 
 # prepare the www public folder
-mkdir www
+mkdir -p www
 
 # keep Procfile
 if [ -f $CACHE_DIR/kitchen/Procfile ]; then
@@ -54,7 +54,7 @@ mkdir -p bin
 ln -s /app/php/bin/php bin/php
 
 # figure out how to serve the website (dynamic or baked)
-PIECRUST_CHEF="bin/php $CACHE_DIR/piecrust-$PIECRUST_VERSION.phar --root=$CACHE_DIR/kitchen"
+PIECRUST_CHEF="/app/php/bin/php $CACHE_DIR/piecrust-$PIECRUST_VERSION.phar --root=$CACHE_DIR/kitchen"
 HEROKU_BUILD=`$PIECRUST_CHEF showconfig heroku/build_type`
 if [ "$HEROKU_BUILD" == "" ]; then
     HEROKU_BUILD=baked
@@ -67,7 +67,7 @@ elif [ "$HEROKU_BUILD" == "dynamic" ]; then
     mv $CACHE_DIR/piecrust-$PIECRUST_VERSION.phar /app
     cat >>www/index.php <<EOF
 <?php
-include 'phar://../www/piecrust.phar/piecrust.php';
+include 'phar:///app/piecrust.phar/piecrust.php';
 piecrust_run();
 EOF
 fi
