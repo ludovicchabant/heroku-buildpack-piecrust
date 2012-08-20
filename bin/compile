@@ -60,7 +60,8 @@ export LD_LIBRARY_PATH="$BUILD_DIR/php/ext"
 
 # figure out how to serve the website (dynamic or baked)
 echo "-----> Reading PieCrust Heroku settings"
-PIECRUST_CHEF="$CACHE_DIR/piecrust-$PIECRUST_VERSION.phar --root=$CACHE_DIR/kitchen"
+cd $CACHE_DIR/kitchen
+PIECRUST_CHEF="$CACHE_DIR/piecrust-$PIECRUST_VERSION.phar"
 HEROKU_BUILD=`php $PIECRUST_CHEF showconfig heroku/build_type`
 if [ "$HEROKU_BUILD" == "" ]; then
     HEROKU_BUILD=baked
@@ -81,6 +82,7 @@ EOF
 else
     echo "-----> Unsupported heroku build type: $HEROKU_BUILD"
 fi
+cd $BUILD_DIR
 
 cat >>boot.sh <<EOF
 for var in \`env|cut -f1 -d=\`; do
