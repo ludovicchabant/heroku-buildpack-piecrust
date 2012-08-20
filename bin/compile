@@ -43,7 +43,7 @@ curl --silent --max-time 60 --location "$PHP_URL" | tar xz
 
 PIECRUST_URL="http://backend.bolt80.com/piecrust/piecrust-$PIECRUST_VERSION.phar"
 echo "-----> Bundling PieCrust version $PIECRUST_VERSION"
-curl --silent --max-time 60 --location "$PIECRUST_URL" > $CACHE_DIR/piecrust-$PIECRUST_VERSION.phar
+curl --silent --max-time 60 --location --output "$CACHE_DIR/piecrust-$PIECRUST_VERSION.phar" "$PIECRUST_URL"
 
 # update config files
 cp $LP_DIR/conf/httpd.conf $APACHE_PATH/conf
