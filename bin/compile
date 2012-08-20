@@ -69,7 +69,7 @@ fi
 if [ "$HEROKU_BUILD" == "baked" ]; then
     # bake the website
     echo "-----> Baking the site"
-    php $PIECRUST_CHEF bake --output=www
+    php $PIECRUST_CHEF bake --output=$BUILD_DIR/www
 elif [ "$HEROKU_BUILD" == "dynamic" ]; then
     # add a bootstrap and keep the .phar
     echo "-----> Moving PieCrust binary and creating bootstrap"
