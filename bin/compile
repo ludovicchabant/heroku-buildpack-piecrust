@@ -78,6 +78,8 @@ elif [ "$HEROKU_BUILD" == "dynamic" ]; then
 include 'phar:///app/piecrust.phar/piecrust.php';
 piecrust_run();
 EOF
+else
+    echo "-----> Unsupported heroku build type: $HEROKU_BUILD"
 fi
 
 cat >>boot.sh <<EOF
