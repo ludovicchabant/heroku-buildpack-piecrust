@@ -56,6 +56,7 @@ ln -s /app/php/bin/php bin/php
 # correctly set LD_LIBRARY_PATH for this script
 # (looks like Heroky loads it from the app config only later)
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/php/ext
+export LD_LIBRARY_PATH
 
 # figure out how to serve the website (dynamic or baked)
 echo "-----> Reading PieCrust Heroku settings"
