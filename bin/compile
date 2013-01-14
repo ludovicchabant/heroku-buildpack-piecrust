@@ -41,7 +41,7 @@ PHP_URL="https://s3.amazonaws.com/php-lp/php-$PHP_VERSION.tar.gz"
 echo "-----> Bundling PHP version $PHP_VERSION"
 curl --silent --max-time 60 --location "$PHP_URL" | tar xz
 
-PIECRUST_URL="http://bolt80.com/download/piecrust/$PIECRUST_VERSION/piecrust.phar"
+PIECRUST_URL="http://backend.bolt80.com/piecrust/$PIECRUST_VERSION/piecrust.phar"
 echo "-----> Bundling PieCrust version $PIECRUST_VERSION"
 curl --silent --max-time 60 --location --output "$CACHE_DIR/piecrust.phar" "$PIECRUST_URL"
 
